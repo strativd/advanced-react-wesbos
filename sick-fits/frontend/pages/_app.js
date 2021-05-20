@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps, apollo }) {
   );
 }
 
+// Tell Next JS to fetch queries, mutations from child componenets
 MyApp.getInitialProps = async function ({ Component, ctx }) {
   let pageProps = {};
   if (Component.getInitialProps) {
@@ -31,4 +32,5 @@ MyApp.getInitialProps = async function ({ Component, ctx }) {
   return pageProps;
 };
 
+// Higher order componenet to use Apollo + Next JS (SSR)
 export default withData(MyApp);
