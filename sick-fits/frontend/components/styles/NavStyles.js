@@ -10,7 +10,7 @@ const NavStyles = styled.ul`
   button {
     padding: 1rem 3rem;
     display: flex;
-    align-items: center;
+    align-items: stretch;
     position: relative;
     text-transform: uppercase;
     font-weight: 900;
@@ -43,17 +43,18 @@ const NavStyles = styled.ul`
       transition: width 0.4s;
       transition-timing-function: cubic-bezier(1, -0.65, 0, 2.31);
       left: 50%;
+      top: 55%;
       margin-top: 2rem;
     }
     &:hover,
     &:focus {
       outline: none;
-      text-decoration:none;
+      text-decoration: none;
       &:after {
-        width: calc(100% - 60px);
+        width: calc(90% - 60px);
       }
       @media (max-width: 700px) {
-        width: calc(100% - 10px);
+        width: calc(90% - 10px);
       }
     }
   }
