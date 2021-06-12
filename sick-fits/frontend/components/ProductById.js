@@ -18,7 +18,7 @@ const ProductStyles = styled.div`
   }
 `;
 
-const PRODUCT_QUERY = gql`
+export const PRODUCT_QUERY = gql`
   query PRODUCT_QUERY($id: ID!) {
     Product(where: { id: $id }) {
       name
@@ -47,16 +47,19 @@ export default function ProductById({ id }) {
   if (error) return <DisplayError error={error} />;
 
   const { Product } = data;
+  const hasImage = Product?.photo?.id;
 
   return (
     <ProductStyles>
       <Head>
         <title>Sick Fits | {Product.name}</title>
       </Head>
-      <img
-        src={Product.photo.image.publicUrlTransformed}
-        alt={Product.photo.altText}
-      />
+      {hasImage && (
+        <img
+          src={Product.photo.image.publicUrlTransformed}
+          alt={Product.photo.altText}
+        />
+      )}
       <div className="details">
         <h2>{Product.name}</h2>
         <p>{Product.description}</p>

@@ -1,7 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function useForm(initial = {}) {
   const [inputs, setInputs] = useState(initial);
+
+  /* Update form data when initial receives data from the DB */
+  // 1. We need a value to watch without triggering useEffect endlessly:
+  const watchInitialValues = Object.values(initial).join('');
+  // 2. useEffect will fire every time 'watchInitialValues' changes:
+  useEffect(() => {
+    setInputs(initial);
+    // List of dependencies for useEffect to watch:
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchInitialValues]);
 
   function handleChange(e) {
     let { value, name, type } = e.target;
