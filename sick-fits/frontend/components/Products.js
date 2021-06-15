@@ -2,8 +2,7 @@ import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
 import { perPage } from '../config';
-import { PRODUCTS_PAGE_QUERY } from '../graphql';
-// eslint-disable-next-line import/no-cycle
+import { PRODUCTS_PAGE_QUERY } from '../graphql/products';
 import Product from './Product';
 
 const ProductsListStyles = styled.div`

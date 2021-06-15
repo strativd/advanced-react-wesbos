@@ -1,5 +1,7 @@
 import { gql } from '@apollo/client';
 
+/* QUERIES */
+
 export const CURRENT_USER_QUERY = gql`
   query {
     authenticatedItem {

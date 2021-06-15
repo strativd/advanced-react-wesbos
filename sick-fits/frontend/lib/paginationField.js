@@ -1,4 +1,4 @@
-import { ALL_PRODUCTS_QUERY } from '../graphql';
+import { ALL_PRODUCTS_QUERY } from '../graphql/products';
 
 export default function paginationField() {
   return {

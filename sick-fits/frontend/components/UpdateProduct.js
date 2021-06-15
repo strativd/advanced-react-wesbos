@@ -3,7 +3,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import useForm from '../lib/useForm';
 import DisplayError from './ErrorMessage';
 import Form from './styles/Form';
-import { PRODUCT_QUERY, UPDATE_PRODUCT_MUTATION } from '../graphql';
+import { PRODUCT_QUERY, UPDATE_PRODUCT_MUTATION } from '../graphql/products';
 
 export default function UpdateProduct({ id }) {
   // 1. We need to get the existing product

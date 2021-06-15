@@ -7,7 +7,7 @@ import {
   DELETE_PRODUCT_MUTATION,
   PRODUCTS_PAGE_QUERY,
   PRODUCT_COUNT_QUERY,
-} from '../graphql';
+} from '../graphql/products';
 
 // Update the cache directly with Apollo 3.0:
 const update = (cache, payload) => {

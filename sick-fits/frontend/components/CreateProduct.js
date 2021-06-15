@@ -9,7 +9,7 @@ import {
   // refetch queries after mutation:
   ALL_PRODUCTS_QUERY,
   PRODUCT_COUNT_QUERY,
-} from '../graphql';
+} from '../graphql/products';
 
 export default function CreateProduct() {
   const defaultValues = {

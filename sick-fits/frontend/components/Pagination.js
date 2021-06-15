@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 
 import PaginationStyles from './styles/PaginationStyles';
 import { perPage } from '../config';
-import { PRODUCT_COUNT_QUERY } from '../graphql';
+import { PRODUCT_COUNT_QUERY } from '../graphql/products';
 
 function Pagination({ page }) {
   const { data, loading, error } = useQuery(PRODUCT_COUNT_QUERY);
