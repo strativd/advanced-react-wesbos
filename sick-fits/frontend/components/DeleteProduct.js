@@ -1,13 +1,13 @@
 import { useMutation } from '@apollo/client';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/dist/client/router';
+import { perPage } from '../config';
 
 // eslint-disable-next-line import/no-cycle
 import {
   DELETE_PRODUCT_MUTATION,
-  ALL_PRODUCTS_QUERY,
-  PRODUCT_COUNT,
+  PRODUCTS_PAGE_QUERY,
+  PRODUCT_COUNT_QUERY,
 } from '../graphql';
-import { perPage } from '../config';
 
 // Update the cache directly with Apollo 3.0:
 const update = (cache, payload) => {
@@ -26,13 +26,13 @@ export default function DeleteProduct({ id, children }) {
     variables: { id },
     refetchQueries: [
       {
-        query: ALL_PRODUCTS_QUERY,
+        query: PRODUCTS_PAGE_QUERY,
         variables: {
           skip,
           first,
         },
       },
-      { query: PRODUCT_COUNT },
+      { query: PRODUCT_COUNT_QUERY },
     ],
     // update,
   });

@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import styled from 'styled-components';
 
 import { perPage } from '../config';
-import { ALL_PRODUCTS_QUERY } from '../graphql';
+import { PRODUCTS_PAGE_QUERY } from '../graphql';
 // eslint-disable-next-line import/no-cycle
 import Product from './Product';
 
@@ -14,11 +14,12 @@ const ProductsListStyles = styled.div`
 
 export default function Products({ page }) {
   const skip = page * perPage - perPage;
+  const first = perPage;
 
-  const { data, error, loading } = useQuery(ALL_PRODUCTS_QUERY, {
+  const { data, error, loading } = useQuery(PRODUCTS_PAGE_QUERY, {
     variables: {
       skip,
-      first: perPage,
+      first,
     },
   });
 

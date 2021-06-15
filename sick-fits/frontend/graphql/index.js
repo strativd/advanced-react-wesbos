@@ -3,7 +3,24 @@ import gql from 'graphql-tag';
 /* QUERIES */
 
 export const ALL_PRODUCTS_QUERY = gql`
-  query ALL_PRODUCTS_QUERY($skip: Int!, $first: Int!) {
+  query ALL_PRODUCTS_QUERY {
+    allProducts {
+      id
+      name
+      price
+      description
+      photo {
+        id
+        image {
+          publicUrlTransformed
+        }
+      }
+    }
+  }
+`;
+
+export const PRODUCTS_PAGE_QUERY = gql`
+  query PRODUCTS_PAGE_QUERY($skip: Int!, $first: Int!) {
     allProducts(skip: $skip, first: $first) {
       id
       name
@@ -37,8 +54,8 @@ export const PRODUCT_QUERY = gql`
   }
 `;
 
-export const PRODUCT_COUNT = gql`
-  query PRODUCT_COUNT {
+export const PRODUCT_COUNT_QUERY = gql`
+  query PRODUCT_COUNT_QUERY {
     _allProductsMeta {
       count
     }
@@ -47,8 +64,8 @@ export const PRODUCT_COUNT = gql`
 
 /* MUTATIONS */
 
-export const CREATE_PRODUCT = gql`
-  mutation CREATE_PRODUCT(
+export const CREATE_PRODUCT_MUTATION = gql`
+  mutation CREATE_PRODUCT_MUTATION(
     $name: String!
     $description: String!
     $price: Int!

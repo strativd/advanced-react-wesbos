@@ -4,7 +4,12 @@ import { useRouter } from 'next/router';
 import useForm from '../lib/useForm';
 import Form from './styles/Form';
 import DisplayError from './ErrorMessage';
-import { ALL_PRODUCTS_QUERY, CREATE_PRODUCT } from '../graphql';
+import {
+  CREATE_PRODUCT_MUTATION,
+  // refetch queries after mutation:
+  ALL_PRODUCTS_QUERY,
+  PRODUCT_COUNT_QUERY,
+} from '../graphql';
 
 export default function CreateProduct() {
   const defaultValues = {
@@ -16,10 +21,16 @@ export default function CreateProduct() {
 
   const { inputs, handleChange, resetForm, clearForm } = useForm(defaultValues);
 
-  const [createProduct, { error, loading }] = useMutation(CREATE_PRODUCT, {
-    variables: inputs,
-    refetchQueries: [{ query: ALL_PRODUCTS_QUERY }],
-  });
+  const [createProduct, { error, loading }] = useMutation(
+    CREATE_PRODUCT_MUTATION,
+    {
+      variables: inputs,
+      refetchQueries: [
+        { query: ALL_PRODUCTS_QUERY },
+        { query: PRODUCT_COUNT_QUERY },
+      ],
+    }
+  );
 
   const router = useRouter();
 

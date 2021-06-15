@@ -4,10 +4,10 @@ import { useQuery } from '@apollo/client';
 
 import PaginationStyles from './styles/PaginationStyles';
 import { perPage } from '../config';
-import { PRODUCT_COUNT } from '../graphql';
+import { PRODUCT_COUNT_QUERY } from '../graphql';
 
 function Pagination({ page }) {
-  const { data, loading, error } = useQuery(PRODUCT_COUNT);
+  const { data, loading, error } = useQuery(PRODUCT_COUNT_QUERY);
 
   const count = data?._allProductsMeta?.count || 0;
   const maximumPages = Math.ceil(count / perPage);
