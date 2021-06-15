@@ -29,8 +29,15 @@ export default function useForm(initial = {}) {
     });
   }
 
-  function resetForm() {
-    setInputs(initial);
+  function resetForm(fields = []) {
+    if (!fields.length) {
+      setInputs(initial);
+      return;
+    }
+    // Preserve current values and reset specified fields
+    const newInputs = { ...inputs };
+    fields.forEach((field) => (newInputs[field] = initial[field]));
+    setInputs(newInputs);
   }
 
   function clearForm() {
