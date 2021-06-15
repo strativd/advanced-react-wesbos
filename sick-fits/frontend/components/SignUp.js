@@ -3,46 +3,55 @@ import { useMutation } from '@apollo/client';
 import Form from './styles/Form';
 import useForm from '../lib/useForm';
 import Error from './ErrorMessage';
-import { CURRENT_USER_QUERY, SIGNIN_MUTATION } from '../graphql/users';
+import { SIGNUP_MUTATION } from '../graphql/users';
 
 export default function SignIn() {
   const { inputs, handleChange, resetForm } = useForm({
+    name: '',
     email: '',
     password: '',
   });
 
-  const [signin, { data, loading }] = useMutation(SIGNIN_MUTATION, {
+  const [signup, { data, loading, error }] = useMutation(SIGNUP_MUTATION, {
     variables: inputs,
-    // refectch the currently logged in user
-    refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
 
   async function handleSubmit(e) {
-    e.preventDefault(); // stop the form from submitting
-    const res = await signin();
-    const loginSuccess =
-      res?.data?.authenticateUserWithPassword?.__typename ===
-      'UserAuthenticationWithPasswordSuccess';
+    e.preventDefault();
 
-    if (loginSuccess) {
-      resetForm();
-    } else {
+    const catchError = (err) => {
       resetForm(['password']);
+      console.error(err);
+    };
+    const res = await signup().catch(catchError);
+    const createdUser = res?.data?.createUser?.id;
+
+    if (createdUser) {
+      resetForm();
     }
-    // Send the email and password to the graphqlAPI
   }
 
-  const renderError =
-    data?.authenticateUserWithPassword.__typename ===
-    'UserAuthenticationWithPasswordFailure' ? (
-      <Error error={data?.authenticateUserWithPassword} />
-    ) : null;
+  const newUserMessage = data ? (
+    <p>Hi {data?.createUser?.name} 👋 Please sign in :)</p>
+  ) : null;
 
   return (
     <Form method="POST" onSubmit={handleSubmit}>
-      <h2>Sign In</h2>
-      {renderError}
+      <h2>Sign Up</h2>
+      {newUserMessage}
+      <Error error={error} />
       <fieldset aria-disabled={loading}>
+        <label htmlFor="name">
+          Name
+          <input
+            type="name"
+            name="name"
+            placeholder="Your Name"
+            autoComplete="name"
+            value={inputs.name}
+            onChange={handleChange}
+          />
+        </label>
         <label htmlFor="email">
           Email
           <input
@@ -65,7 +74,7 @@ export default function SignIn() {
             onChange={handleChange}
           />
         </label>
-        <button type="submit">Sign In!</button>
+        <button type="submit">Sign Up!</button>
       </fieldset>
     </Form>
   );
