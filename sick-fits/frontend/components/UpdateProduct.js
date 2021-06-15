@@ -1,29 +1,9 @@
 import { useMutation, useQuery } from '@apollo/client';
-import gql from 'graphql-tag';
 
 import useForm from '../lib/useForm';
 import DisplayError from './ErrorMessage';
 import Form from './styles/Form';
-import { PRODUCT_QUERY } from './ProductById';
-
-const UPDATE_PRODUCT_MUTATION = gql`
-  mutation UPDATE_PRODUCT_MUTATION(
-    $id: ID!
-    $name: String
-    $description: String
-    $price: Int
-  ) {
-    updateProduct(
-      id: $id
-      data: { name: $name, description: $description, price: $price }
-    ) {
-      id
-      name
-      description
-      price
-    }
-  }
-`;
+import { PRODUCT_QUERY, UPDATE_PRODUCT_MUTATION } from '../graphql';
 
 export default function UpdateProduct({ id }) {
   // 1. We need to get the existing product

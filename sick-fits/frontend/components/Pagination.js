@@ -1,18 +1,10 @@
 import Link from 'next/link';
 import Head from 'next/head';
-import gql from 'graphql-tag';
 import { useQuery } from '@apollo/client';
 
 import PaginationStyles from './styles/PaginationStyles';
 import { perPage } from '../config';
-
-const PRODUCT_COUNT = gql`
-  query PRODUCT_COUNT {
-    _allProductsMeta {
-      count
-    }
-  }
-`;
+import { PRODUCT_COUNT } from '../graphql';
 
 function Pagination({ page }) {
   const { data, loading, error } = useQuery(PRODUCT_COUNT);
