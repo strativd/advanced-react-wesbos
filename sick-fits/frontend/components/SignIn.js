@@ -1,4 +1,6 @@
 import { useMutation } from '@apollo/client';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import Form from './styles/Form';
 import useForm from '../lib/useForm';
@@ -17,6 +19,8 @@ export default function SignIn() {
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
 
+  const router = useRouter();
+
   async function handleSubmit(e) {
     e.preventDefault(); // stop the form from submitting
     const res = await signin();
@@ -26,6 +30,10 @@ export default function SignIn() {
 
     if (loginSuccess) {
       resetForm();
+      // Go to the account page!
+      router.push({
+        pathname: `account`,
+      });
     } else {
       resetForm(['password']);
     }
@@ -66,6 +74,9 @@ export default function SignIn() {
           />
         </label>
         <button type="submit">Sign In!</button>
+        <p>
+          🤷 <Link href="/reset">or reset your password...</Link>
+        </p>
       </fieldset>
     </Form>
   );
