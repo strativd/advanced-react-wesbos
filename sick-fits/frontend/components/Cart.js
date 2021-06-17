@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 
 import CartStyles from './styles/CartStyles';
+import CloseButton from './styles/CloseButton';
 import Supreme from './styles/Supreme';
 import formatMoney from '../lib/formatMoney';
 import { useUser } from '../lib/useUser';
 import calcCartTotal from '../lib/calcCartTotal';
+import { useCart } from '../lib/cartState';
 
 const CartItemStyles = styled.li`
   padding: 1rem 0;
@@ -24,7 +26,6 @@ function CartItem({ cartItem }) {
   const { product } = cartItem;
 
   if (!product) return null;
-  console.log(product);
 
   return (
     <CartItemStyles>
@@ -48,13 +49,15 @@ function CartItem({ cartItem }) {
 
 export default function Cart() {
   const user = useUser();
+  const { cartOpen, closeCart } = useCart();
 
   if (!user) return null;
 
   return (
-    <CartStyles open>
+    <CartStyles open={cartOpen}>
       <header>
         <Supreme>{user.name}'s Cart</Supreme>
+        <CloseButton onClick={closeCart}>&times;</CloseButton>
       </header>
       <ul>
         {user.cart.map((cartItem) => (
