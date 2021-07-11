@@ -7,6 +7,7 @@ import formatMoney from '../lib/formatMoney';
 import { useUser } from '../lib/useUser';
 import calcCartTotal from '../lib/calcCartTotal';
 import { useCart } from '../lib/cartState';
+import CartRemoveItem from './CartRemoveItem';
 
 const CartItemStyles = styled.li`
   padding: 1rem 0;
@@ -43,6 +44,7 @@ function CartItem({ cartItem }) {
           </em>
         </p>
       </div>
+      <CartRemoveItem id={cartItem.id} />
     </CartItemStyles>
   );
 }
