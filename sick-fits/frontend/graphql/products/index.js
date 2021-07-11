@@ -62,6 +62,27 @@ export const PRODUCT_COUNT_QUERY = gql`
   }
 `;
 
+export const SEARCH_PRODUCTS_QUERY = gql`
+  query SEARCH_PRODUCTS_QUERY($searchTerm: String!) {
+    searchTerms: allProducts(
+      where: {
+        OR: [
+          { name_contains_i: $searchTerm }
+          { description_contains_i: $searchTerm }
+        ]
+      }
+    ) {
+      id
+      name
+      photo {
+        image {
+          publicUrlTransformed
+        }
+      }
+    }
+  }
+`;
+
 /* MUTATIONS */
 
 export const CREATE_PRODUCT_MUTATION = gql`
