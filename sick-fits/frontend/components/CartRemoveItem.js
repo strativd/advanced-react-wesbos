@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client';
-import gql from 'graphql-tag';
 import styled from 'styled-components';
+
+import { REMOVE_CART_ITEM_MUTATION } from '../graphql/cart';
 
 const BigButton = styled.button`
   font-size: 3rem;
@@ -12,29 +13,24 @@ const BigButton = styled.button`
   }
 `;
 
-const REMOVE_FROM_CART_MUTATION = gql`
-  mutation REMOVE_FROM_CART_MUTATION($id: ID!) {
-    deleteCartItem(id: $id) {
-      id
-    }
-  }
-`;
-
 function update(cache, payload) {
   cache.evict(cache.identify(payload.data.deleteCartItem));
 }
 
 export default function CartRemoveItem({ id }) {
-  const [removeFromCart, { loading }] = useMutation(REMOVE_FROM_CART_MUTATION, {
+  const [removeFromCart, { loading }] = useMutation(REMOVE_CART_ITEM_MUTATION, {
     variables: { id },
     update,
-    // REMOVE: optimistic response calling every query on the page ¯\_(シ)_/¯
-    // optimisticResponse: {
-    //   deleteCartItem: {
-    //     __typename: 'CartItem',
-    //     id,
-    //   },
-    // },
+    /* REMOVE: optimistic response calling every query on the page ¯\_(シ)_/¯
+
+    optimisticResponse: {
+      deleteCartItem: {
+        __typename: 'CartItem',
+        id,
+      },
+    },
+    
+    */
   });
   return (
     <BigButton
