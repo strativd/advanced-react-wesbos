@@ -10,7 +10,6 @@ async function addToCart(
 ): Promise<CartItemCreateInput> {
   // Get CartItem from Keystone lists API
   const { CartItem } = context.lists;
-  console.log("ADDING TO CART!");
   // 1. Query the current user to see if they are signed in
   const session = context.session as Session;
   if (!session.itemId) {
@@ -32,7 +31,6 @@ async function addToCart(
   const [existingCartItem] = allCartItems; //= extract the first item from the list if it exists
   // 4A. if it is, increment by 1
   if (existingCartItem) { 
-    console.log(`Found ${existingCartItem.quantity} item, increment by 1!`);
     return await CartItem.updateOne({
       id: existingCartItem.id,
       data: {
