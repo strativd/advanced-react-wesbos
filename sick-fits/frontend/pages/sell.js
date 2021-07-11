@@ -1,10 +1,10 @@
-import React from 'react';
 import CreateProduct from '../components/CreateProduct';
+import RequireSignIn from '../components/RequireSignIn';
 
 export default function SellPage() {
   return (
-    <div>
+    <RequireSignIn>
       <CreateProduct />
-    </div>
+    </RequireSignIn>
   );
 }

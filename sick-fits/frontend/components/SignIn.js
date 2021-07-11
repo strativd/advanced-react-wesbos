@@ -31,9 +31,9 @@ export default function SignIn() {
     if (loginSuccess) {
       resetForm();
       // Go to the account page!
-      router.push({
-        pathname: `account`,
-      });
+      if (router.pathname === '/signin') {
+        router.push({ pathname: 'account' });
+      }
     } else {
       resetForm(['password']);
     }
