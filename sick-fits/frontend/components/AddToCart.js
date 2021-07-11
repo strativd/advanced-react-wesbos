@@ -9,7 +9,7 @@ export default function AddToCart({ id }) {
   const { openCart } = useCart();
   const [addToCart, { error, loading }] = useMutation(ADD_TO_CART_MUTATION, {
     variables: { id },
-    refetchQueries: CURRENT_USER_QUERY,
+    refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
 
   const handleClick = async () => {
